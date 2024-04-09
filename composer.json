@@ -2,6 +2,7 @@
     "name": "erlementovich/reindexer-bundle",
     "description": "Symfony integration for Reindexer (https://github.com/Restream/reindexer)",
     "type": "symfony-bundle",
+    "version": "1.0.0",
     "keywords": ["pik", "reindexer"],
     "license": "MIT",
     "autoload": {
@@ -22,26 +23,17 @@
     "require": {
         "php": ">=8.0",
         "smolevich/reindexer-client": "^2.0",
-        "symfony/framework-bundle": "^6.0"
+        "symfony/framework-bundle": "^6.0 || ^7.0"
     },
     "require-dev": {
-        "symfony/yaml": "^6.0",
-        "friendsofphp/php-cs-fixer": "^3.14",
-        "phpstan/phpstan": "^1.10"
+        "symfony/yaml": "^6.0 || ^7.0",
+        "phpstan/phpstan": "^1.10",
+        "symplify/easy-coding-standard": "^12.1"
     },
     "scripts": {
-        "all-check": [
-            "@cs-sniff",
-            "@phpstan"
-        ],
-        "cs-sniff": [
-            "./vendor/bin/php-cs-fixer fix src -v --dry-run --using-cache=no --show-progress=none"
-        ],
-        "cs-lint": [
-            "./vendor/bin/php-cs-fixer fix src -v"
-        ],
-        "phpstan": [
-            "./vendor/bin/phpstan analyse --xdebug -c .phpstan.dist.neon --no-progress --memory-limit 512M"
-        ]
+        "check": ["@ecs", "@phpstan"],
+        "ecs": "./vendor/bin/ecs",
+        "ecs-fix": "./vendor/bin/ecs --fix",
+        "phpstan": "./vendor/bin/phpstan --memory-limit=512M"
     }
 }
