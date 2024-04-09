@@ -26,33 +26,27 @@ abstract class AbstractModel implements ModelInterface
         $this->connection->setNamespaceName($this->source)->setNamespace();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    
     public function getSource(): string
     {
         return $this->source;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    
     public function delete(int $id): void
     {
-        $this->connection->deleteItem(['id' => $id]);
+        $this->connection->deleteItem([
+            'id' => $id,
+        ]);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    
     public function getConnection(): ClientInterface
     {
         return $this->connection;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    
     public function updateField(int $id, string $field, mixed $value): ClientInterface
     {
         $sql = "UPDATE $this->source SET $field = $value WHERE id = $id";
@@ -60,9 +54,7 @@ abstract class AbstractModel implements ModelInterface
         return $this->connection->get($sql);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function reindex(array $data, bool $update = false): void
     {
         $data = $this->mapping($data);
@@ -73,9 +65,7 @@ abstract class AbstractModel implements ModelInterface
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function mapping(array $data): array
     {
         if (empty($this->_mapping)) {
@@ -109,17 +99,13 @@ abstract class AbstractModel implements ModelInterface
         return $data;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    
     public function getById(int $id): mixed
     {
         return $this->connection->getById($id)->getItem();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    
     public function getByIds(array $ids): mixed
     {
         $strIds = implode(',', $ids);
@@ -128,9 +114,7 @@ abstract class AbstractModel implements ModelInterface
         return $this->connection->get($sql)->getItems();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    
     public function setIsAssociative(bool $isAssociative): self
     {
         $this->getConnection()->setIsAssociative($isAssociative);

@@ -41,7 +41,7 @@ interface ModelInterface
     public function updateField(int $id, string $field, mixed $value): ClientInterface;
 
     /**
-     * Переиднексация данных в rx.
+     * @param array<string, mixed> $data
      */
     public function reindex(array $data, bool $update = false): void;
 

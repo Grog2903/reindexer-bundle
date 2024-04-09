@@ -36,25 +36,16 @@ final class Client implements ClientInterface
     ) {
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getNamespaceName(): string
     {
         return $this->namespaceName;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getApi(): Api
     {
         return $this->api;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function setNamespaceName(string $namespaceName): self
     {
         $this->namespaceName = $namespaceName;
@@ -62,9 +53,6 @@ final class Client implements ClientInterface
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function setNamespace(): self
     {
         $namespaceService = new Namespaces($this->api);
@@ -74,20 +62,15 @@ final class Client implements ClientInterface
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getNamespace(): Namespaces
     {
         return $this->namespace;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function deleteNamespace(): bool
     {
         $namespaceService = $this->getNamespace();
+        /** @var array{items: array, total_items: integer} $namespaces */
         $namespaces = $namespaceService->getList()->getDecodedResponseBody(true);
 
         if (empty($namespaces['items'])) {
@@ -103,25 +86,19 @@ final class Client implements ClientInterface
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function createNamespace(string $namespace, array $indexes): void
     {
         $this->getNamespace()->create($namespace, $indexes);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function createIndex(): Index
     {
         return new Index();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function checkItem(int $itemId): bool
     {
         $sql = "SELECT * FROM $this->namespaceName WHERE id = $itemId";
@@ -132,9 +109,7 @@ final class Client implements ClientInterface
         return !empty($data['items']);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function updateItem(array $data, string $updateFieldName = 'updatedAt'): bool
     {
         if (empty($data['id'])) {
@@ -156,9 +131,7 @@ final class Client implements ClientInterface
         return true;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function saveItem(array $data): void
     {
         $item = new Item($this->api);
@@ -168,9 +141,7 @@ final class Client implements ClientInterface
         $this->checkItem((int) $data['id']) ? $item->update($data) : $item->add($data);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function deleteItem(array $data = []): void
     {
         $item = new Item($this->api);
@@ -180,9 +151,7 @@ final class Client implements ClientInterface
         $item->delete($data);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function query(): Query
     {
         $query = new Query($this->api);
@@ -191,9 +160,7 @@ final class Client implements ClientInterface
         return $query;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function get(string $sql): self
     {
         $response = $this->query()->createByHttpGet($sql);
@@ -210,33 +177,25 @@ final class Client implements ClientInterface
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function getItem(): mixed
     {
         return $this->isAssociative ? $this->result['items'][0] ?? null : $this->result->items[0] ?? null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function getItems(): mixed
     {
         return $this->isAssociative ? $this->result['items'] ?? null : $this->result->items ?? null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function getTotalItems(): int
     {
         return $this->isAssociative ? $this->result['query_total_items'] ?? 0 : $this->result->query_total_items ?? 0;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function getById(int $id, string $query = ''): self
     {
         $sql = "SELECT * FROM $this->namespaceName WHERE id = $id $query";
@@ -244,9 +203,7 @@ final class Client implements ClientInterface
         return $this->get($sql);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function getByGuid(string $guid): self
     {
         $sql = "SELECT * FROM $this->namespaceName WHERE guid = `$guid`";
@@ -254,9 +211,7 @@ final class Client implements ClientInterface
         return $this->get($sql);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function arrayMergeRecursiveDistinct(array $array1, array $array2): array
     {
         $merged = $array1;
@@ -272,9 +227,7 @@ final class Client implements ClientInterface
         return $merged;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public function setIsAssociative(bool $isAssociative): self
     {
         $this->isAssociative = $isAssociative;

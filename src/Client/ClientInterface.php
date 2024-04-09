@@ -29,6 +29,9 @@ interface ClientInterface
 
     public function deleteNamespace(): bool;
 
+    /**
+     * @param Index[] $indexes
+     */
     public function createNamespace(string $namespace, array $indexes): void;
 
     public function createIndex(): Index;
