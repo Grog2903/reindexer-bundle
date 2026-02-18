@@ -1,5 +1,5 @@
 {
-    "name": "erlementovich/reindexer-bundle",
+    "name": "grog2903/reindexer-bundle",
     "description": "Symfony integration for Reindexer (https://github.com/Restream/reindexer)",
     "type": "symfony-bundle",
     "version": "1.1.0",
