@@ -47,6 +47,7 @@ final class Configuration implements ConfigurationInterface
         $nodeChildren
             ->scalarNode('url')->end()
             ->scalarNode('dbname')->end()
+            ->scalarNode('timeout')->end()
             ->arrayNode('auth')
                 ->children()
                     ->scalarNode('user')->cannotBeEmpty()->isRequired()->end()
