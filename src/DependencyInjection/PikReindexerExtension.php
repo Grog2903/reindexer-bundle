@@ -66,6 +66,8 @@ final class PikReindexerExtension extends Extension
             ];
         }
 
+        $clientOptions['timeout'] = $options['timeout'] ?? 0;
+
         $api->addArgument($clientOptions);
 
         $apiServiceName = sprintf('%s.%s.api', $this->getAlias(), $clientName);

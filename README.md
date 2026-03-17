@@ -45,6 +45,7 @@ pik_reindexer:
         first:
             url: 'http://url'
             dbname: 'firstdbname'
+            timeout: 10
             auth:
                 user: example_user
                 password: 12345
